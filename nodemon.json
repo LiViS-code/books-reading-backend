@@ -1,6 +1,5 @@
 {
   "ignore": [
-    "node_modules",
-    "models/contacts.json"
+    "node_modules"
   ]
 }
