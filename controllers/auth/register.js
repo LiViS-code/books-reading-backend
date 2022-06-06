@@ -1,9 +1,8 @@
-const { User } = require('../../models/user')
-const { joiSchema } = require('../../models/user')
+const { User, joiSchema } = require('../../models/user')
 const bcrypt = require('bcryptjs');
-const { validation } = require('../../middlewares/validation');
+const { validation } = require('../../middlewares/');
 const { v4 } = require('uuid');
-const { sendMail } = require('../../helpers/sendMail');
+const { sendMail } = require('../../helpers/');
 
 
 const register = async(req, res, next) => {
@@ -44,6 +43,4 @@ const register = async(req, res, next) => {
     }
 }
 
-module.exports = {
-  register
-}
+module.exports = register

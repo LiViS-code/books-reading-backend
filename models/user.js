@@ -13,7 +13,6 @@ const userSchema = Schema({
   },
   name: {
     type: String,
-    required: [true, 'Name is required'],
   },
   token: {
     type: String,
@@ -31,7 +30,7 @@ const userSchema = Schema({
 
 const joiSchema = Joi.object({
   email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-  name: Joi.string().min(3).max(30).required(),
+  name: Joi.string().min(3).max(30),
   password: Joi.string().min(6).max(30).required(),
 })
 
