@@ -27,7 +27,7 @@ const register = async(req, res, next) => {
     const mail = {
       to: email,
       subject: 'Confirm email',
-      html: `<a target='_blanc' href='http:localhost:3000/api/users/verify/${verificationToken}'>Confirm your email</a>`
+      html: `<a target='_blanc' href='http:localhost:3001/api/users/verify/${verificationToken}'>Confirm your email</a>`
     }
     await sendMail(mail)
 
@@ -43,4 +43,4 @@ const register = async(req, res, next) => {
     }
 }
 
-module.exports = register
+module.exports = register;
