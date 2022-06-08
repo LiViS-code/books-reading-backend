@@ -1,12 +1,12 @@
 const express = require("express");
 
-const { getCurrent, verifyEmail } = require("../../controllers/");
-const { auth } = require("../../middlewares/");
+const { users: ctrl } = require("../../controllers/");
+const { auth, ctrlWrapper } = require("../../middlewares/");
 
 const router = express.Router();
 
-router.get("/current", auth, getCurrent);
+router.get("/current", auth, ctrlWrapper(ctrl.getCurrent));
 
-router.get('/verify/:verificationToken', verifyEmail);
+router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verifyEmail));
 
 module.exports = router;
