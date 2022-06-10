@@ -1,10 +1,20 @@
 const { User, joiSchema } = require("./user");
-const { Book, bookSchema, joiStatusBookSchema } = require("./book");
+const {
+  Book,
+  bookSchema,
+  joiBookSchema,
+  joiFavoriteBookSchema,
+  joiWishBookSchema,
+  joiRatingBookSchema,
+} = require("./book");
 
 module.exports = {
   User,
   joiSchema,
   Book,
   bookSchema,
-  joiStatusBookSchema,
+  joiBookSchema,
+  joiFavoriteBookSchema,
+  joiWishBookSchema,
+  joiRatingBookSchema,
 };

@@ -23,15 +23,15 @@ const bookSchema = Schema(
       required: [true, "enter amount of pages"],
       min: 1,
     },
-    status: {
+    wish: {
       type: String,
       enum: ["Already read", "Reading now", "Going to read"],
       default: "Going to read",
     },
     rating: {
       type: Number,
-      enum: ["0", "1", "2", "3", "4", "5"],
-      default: "0",
+      enum: [0, 1, 2, 3, 4, 5],
+      default: 0,
     },
     favorite: {
       type: Boolean,
@@ -47,17 +47,27 @@ const bookSchema = Schema(
 );
 
 const joiBookSchema = Joi.object({
-  title: Joi.string().required().min(3).max(50),
+  title: Joi.string().required().min(3).max(100),
   author: Joi.string().required().min(3).max(35),
   year: Joi.date().required(),
   pages: Joi.number().required().min(1),
-  status: Joi.string(),
+  wish: Joi.string(),
   rating: Joi.number(),
   favorite: Joi.boolean(),
 });
 
-const joiStatusBookSchema = Joi.object({
+const joiFavoriteBookSchema = Joi.object({
   favorite: Joi.boolean().required(),
+});
+
+const joiWishBookSchema = Joi.object({
+  wish: Joi.string()
+    .valid("Already read", "Reading now", "Going to read")
+    .required(),
+});
+
+const joiRatingBookSchema = Joi.object({
+  rating: Joi.number().valid(0, 1, 2, 3, 4, 5).required(),
 });
 
 const Book = model("book", bookSchema);
@@ -66,5 +76,7 @@ module.exports = {
   Book,
   bookSchema,
   joiBookSchema,
-  joiStatusBookSchema,
+  joiFavoriteBookSchema,
+  joiWishBookSchema,
+  joiRatingBookSchema,
 };

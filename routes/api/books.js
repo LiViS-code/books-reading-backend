@@ -1,8 +1,7 @@
 const express = require("express");
 const { ctrlWrapper, validationBook, auth } = require("../../middlewares");
-const { joiBookSchema, joiStatusBookSchema } = require("../../models");
+const { joiBookSchema } = require("../../models");
 const { books: ctrl } = require("../../controllers");
-
 const router = express.Router();
 
 router.get("/", auth, ctrlWrapper(ctrl.getAllBooks));
@@ -26,9 +25,9 @@ router.put(
 );
 
 router.patch(
-  "/:bookId/favorite",
+  "/:bookId/:status",
   auth,
-  validationBook(joiStatusBookSchema, "missing field favorite"),
+  validationBook(null, "missing field status (favorite/rating/wish)"),
   ctrlWrapper(ctrl.updateStatusBook)
 );
 
