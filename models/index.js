@@ -7,6 +7,7 @@ const {
   joiWishBookSchema,
   joiRatingBookSchema,
 } = require("./book");
+const { Training, joiTrainingSchema } = require("./training");
 
 module.exports = {
   User,
@@ -17,4 +18,6 @@ module.exports = {
   joiFavoriteBookSchema,
   joiWishBookSchema,
   joiRatingBookSchema,
+  Training,
+  joiTrainingSchema,
 };
