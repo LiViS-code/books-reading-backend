@@ -4,7 +4,7 @@ const {
   joiRatingBookSchema,
 } = require("../models");
 
-const shemaSelect = async (status) => {
+const shemaSelect = (status) => {
   switch (status) {
     case "wish":
       return joiWishBookSchema;
@@ -20,14 +20,14 @@ const shemaSelect = async (status) => {
 const { createError } = require("../helpers");
 
 const validationBook = (schema = null, message = null) => {
-  return async (req, _, next) => {
+  return (req, _, next) => {
     if (schema === null) {
-      console.log("NULL");
       const { status } = req.params;
-      schema = await shemaSelect(status);
+      schema = shemaSelect(status);
     }
 
     const { error } = schema.validate(req.body);
+    schema = null;
 
     if (error) {
       if (message) {

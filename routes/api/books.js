@@ -27,7 +27,7 @@ router.put(
 router.patch(
   "/:bookId/:status",
   auth,
-  validationBook(null, "missing field status (favorite/rating/wish)"),
+  validationBook(null),
   ctrlWrapper(ctrl.updateStatusBook)
 );
 
