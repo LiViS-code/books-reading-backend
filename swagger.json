@@ -20,7 +20,13 @@
     {
       "name": "Books",
       "description": "Books endpoints"
+    },
+    {
+      "name": "Training",
+      "description": "Trainings endpoints"
     }
+
+    
   ],
   "paths": {
     "api/auth/signup": {
@@ -402,6 +408,18 @@
               }
           }
       }
+  },
+  "api/training": {
+    "post": {
+      "tags": ["Training"],
+      "summary": "Add training",
+      "parameters": []
+    },
+    "get": {
+      "tags": ["Training"],
+      "summary": "Get all trainings",
+      "parameters": []
+    }
   }
   },
   "components": {
