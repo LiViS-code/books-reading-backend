@@ -1,4 +1,4 @@
-const { User, joiSchema } = require("./user");
+const { User, joiUserSchema } = require("./user");
 const {
   Book,
   bookSchema,
@@ -10,7 +10,7 @@ const {
 
 module.exports = {
   User,
-  joiSchema,
+  joiUserSchema,
   Book,
   bookSchema,
   joiBookSchema,
