@@ -8,6 +8,7 @@ const updateStatusBook = async (req, res) => {
   let book = null;
   let favorite = null;
   let rating = null;
+  let resume = null;
   let wish = null;
 
   switch (status) {
@@ -21,9 +22,10 @@ const updateStatusBook = async (req, res) => {
       break;
     case "rating":
       rating = req.body.rating;
+      resume = req.body.resume;
       book = await Book.findOneAndUpdate(
         { _id: bookId, owner },
-        { rating },
+        { rating, resume },
         { new: true }
       );
       break;
