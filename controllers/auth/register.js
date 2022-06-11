@@ -1,4 +1,4 @@
-const { User, joiSchema } = require('../../models/user')
+const { User, joiUserSchema } = require('../../models/user')
 const bcrypt = require('bcryptjs');
 const { validation } = require('../../middlewares/');
 const { v4 } = require('uuid');
@@ -8,7 +8,7 @@ const { sendMail } = require('../../helpers/');
 const register = async(req, res, next) => {
   try {
     const {email, name, password} = req.body;
-    const validationResult = joiSchema.validate(req.body);
+    const validationResult = joiUserSchema.validate(req.body);
     
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
