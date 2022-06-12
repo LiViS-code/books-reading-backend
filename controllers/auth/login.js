@@ -1,4 +1,4 @@
-const { User, joiSchema } = require("../../models/");
+const { User, joiUserSchema } = require("../../models/");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = process.env;
@@ -7,7 +7,7 @@ const { validation } = require("../../middlewares");
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const validationResult = joiSchema.validate(req.body);
+    const validationResult = joiUserSchema.validate(req.body);
 
     validation(validationResult, res);
 
