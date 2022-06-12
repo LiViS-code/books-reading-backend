@@ -1,13 +1,21 @@
-
-const express = require('express');
-const { auth, ctrlWrapper } = require("../../middlewares/");
-const { training: ctrl } = require('../../controllers');
+const express = require("express");
+const {
+  auth,
+  ctrlWrapper,
+  // trainingValidation
+} = require("../../middlewares");
+const { training: ctrl } = require("../../controllers");
+// const { joiTrainingSchema } = require("../../models");
 
 const router = express.Router();
 
-router.post('/', auth, ctrlWrapper(ctrl.addTraining));
+router.post(
+  "/",
+  auth,
+  // trainingValidation(joiTrainingSchema),
+  ctrlWrapper(ctrl.addTraining)
+);
 
-router.get('/', auth, ctrlWrapper(ctrl.getTrainings));
-
+router.get("/", auth, ctrlWrapper(ctrl.getTrainings));
 
 module.exports = router;

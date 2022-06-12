@@ -7,5 +7,5 @@ module.exports = {
   booksRouter,
   authRouter,
   usersRouter,
-  trainingRouter
+  trainingRouter,
 };
