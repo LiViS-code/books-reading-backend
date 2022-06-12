@@ -27,7 +27,6 @@ const trainingSchema = Schema(
 const joiTrainingSchema = Joi.object({
   start: Joi.date().required(),
   end: Joi.date().required(),
-  books: Joi.array().required(),
 });
 
 const Training = model("training", trainingSchema);

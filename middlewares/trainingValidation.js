@@ -1,6 +1,6 @@
 const { createError } = require("../helpers");
 
-const trainingValidation = async (schema, message = null) => {
+const trainingValidation = (schema, message = null) => {
   return (req, _, next) => {
     const { error } = schema.validate(req.body);
     if (error) {
