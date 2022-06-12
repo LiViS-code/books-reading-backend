@@ -73,7 +73,7 @@ const joiWishBookSchema = Joi.object({
 
 const joiRatingBookSchema = Joi.object({
   rating: Joi.number().valid(0, 1, 2, 3, 4, 5).required(),
-  resume: Joi.string().min(10),
+  resume: Joi.string().min(10).required(),
 });
 
 const Book = model("book", bookSchema);
