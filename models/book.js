@@ -39,7 +39,6 @@ const bookSchema = Schema(
     },
     resume: {
       type: String,
-      minlength: 10,
       default: "",
     },
     owner: {

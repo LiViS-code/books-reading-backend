@@ -9,4 +9,6 @@ router.get("/current", auth, ctrlWrapper(ctrl.getCurrent));
 
 router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verifyEmail));
 
+router.get("/info", ctrlWrapper(ctrl.getUserInfo));
+
 module.exports = router;
