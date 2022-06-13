@@ -39,7 +39,6 @@ const bookSchema = Schema(
     },
     resume: {
       type: String,
-      minlength: 10,
       default: "",
     },
     owner: {
@@ -56,9 +55,6 @@ const joiBookSchema = Joi.object({
   author: Joi.string().required().min(3).max(35),
   year: Joi.date().required(),
   pages: Joi.number().required().min(1),
-  wish: Joi.string(),
-  rating: Joi.number(),
-  favorite: Joi.boolean(),
 });
 
 const joiFavoriteBookSchema = Joi.object({
