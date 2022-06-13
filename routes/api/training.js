@@ -1,9 +1,11 @@
 const express = require("express");
 const { auth, ctrlWrapper, trainingValidation } = require("../../middlewares");
 const { training: ctrl } = require("../../controllers");
-const { joiTrainingSchema } = require("../../models");
+const { joiTrainingSchema, joiResultTrainingSchema } = require("../../models");
 
 const router = express.Router();
+
+router.get("/", auth, ctrlWrapper(ctrl.getTrainings));
 
 router.post(
   "/",
@@ -12,6 +14,11 @@ router.post(
   ctrlWrapper(ctrl.addTraining)
 );
 
-router.get("/", auth, ctrlWrapper(ctrl.getTrainings));
+router.post(
+  "/:idTraining",
+  auth,
+  trainingValidation(joiResultTrainingSchema),
+  ctrlWrapper(ctrl.addResultByIdTraining)
+);
 
 module.exports = router;
