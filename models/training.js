@@ -11,6 +11,7 @@ const trainingSchema = Schema(
       type: Date,
       required: [true, "End of training is required"],
     },
+    result: { type: Array, required: [false, "Daily Read Result (Date/Pages)"] },
     books: {
       type: [Schema.Types.ObjectId],
       ref: "book",
@@ -29,9 +30,14 @@ const joiTrainingSchema = Joi.object({
   end: Joi.date().required(),
 });
 
+const joiResultTrainingSchema = Joi.object({
+  result: Joi.array().required(),
+})
+
 const Training = model("training", trainingSchema);
 
 module.exports = {
   Training,
   joiTrainingSchema,
+  joiResultTrainingSchema,
 };
