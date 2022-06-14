@@ -20,7 +20,6 @@ const shemaSelect = (status) => {
 const { createError } = require("../helpers");
 
 const validationBook = (schema = null, message = null) => {
-  console.log("schema", schema);
   return (req, _, next) => {
     if (schema === null) {
       const { status } = req.params;
