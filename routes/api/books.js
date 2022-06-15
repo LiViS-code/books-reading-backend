@@ -1,6 +1,11 @@
 const express = require("express");
-const { ctrlWrapper, validationBook, auth } = require("../../middlewares");
-const { joiBookSchema } = require("../../models");
+const { ctrlWrapper, schemasValidation, auth } = require("../../middlewares");
+const {
+  joiBookSchema,
+  joiFavoriteBookSchema,
+  joiWishBookSchema,
+  joiRatingBookSchema,
+} = require("../../models");
 const { books: ctrl } = require("../../controllers");
 const router = express.Router();
 
@@ -11,7 +16,7 @@ router.get("/:bookId", auth, ctrlWrapper(ctrl.getBookById));
 router.post(
   "/",
   auth,
-  validationBook(joiBookSchema),
+  schemasValidation(joiBookSchema),
   ctrlWrapper(ctrl.addBook)
 );
 
@@ -20,14 +25,28 @@ router.delete("/:bookId", auth, ctrlWrapper(ctrl.removeBook));
 router.put(
   "/:bookId",
   auth,
-  validationBook(joiBookSchema),
+  schemasValidation(joiBookSchema),
   ctrlWrapper(ctrl.updateBook)
 );
 
 router.patch(
-  "/:bookId/:status",
+  "/:bookId/rating",
   auth,
-  validationBook(),
+  schemasValidation(joiRatingBookSchema),
+  ctrlWrapper(ctrl.updateStatusBook)
+);
+
+router.patch(
+  "/:bookId/favorite",
+  auth,
+  schemasValidation(joiFavoriteBookSchema),
+  ctrlWrapper(ctrl.updateStatusBook)
+);
+
+router.patch(
+  "/:bookId/wish",
+  auth,
+  schemasValidation(joiWishBookSchema),
   ctrlWrapper(ctrl.updateStatusBook)
 );
 
