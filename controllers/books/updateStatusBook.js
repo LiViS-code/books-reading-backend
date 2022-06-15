@@ -2,8 +2,9 @@ const { Book } = require("../../models");
 const { createError } = require("../../helpers");
 
 const updateStatusBook = async (req, res) => {
-  const { bookId, status } = req.params;
+  const { bookId } = req.params;
   const { _id: owner } = req.user;
+  const parameterToChange = req.url.split("/").reverse()[0];
 
   let book = null;
   let favorite = null;
@@ -11,7 +12,7 @@ const updateStatusBook = async (req, res) => {
   let resume = null;
   let wish = null;
 
-  switch (status) {
+  switch (parameterToChange) {
     case "favorite":
       favorite = req.body.favorite;
       book = await Book.findOneAndUpdate(

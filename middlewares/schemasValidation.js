@@ -1,6 +1,6 @@
 const { createError } = require("../helpers");
 
-const trainingValidation = (schema, message = null) => {
+const schemasValidation = (schema, message = null) => {
   return (req, _, next) => {
     const { error } = schema.validate(req.body);
     if (error) {
@@ -14,4 +14,4 @@ const trainingValidation = (schema, message = null) => {
   };
 };
 
-module.exports = trainingValidation;
+module.exports = schemasValidation;
