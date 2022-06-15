@@ -1,5 +1,5 @@
 const express = require("express");
-const { auth, ctrlWrapper, trainingValidation } = require("../../middlewares");
+const { auth, ctrlWrapper, schemasValidation } = require("../../middlewares");
 const { training: ctrl } = require("../../controllers");
 const { joiTrainingSchema, joiResultTrainingSchema } = require("../../models");
 
@@ -10,14 +10,14 @@ router.get("/", auth, ctrlWrapper(ctrl.getTrainings));
 router.post(
   "/",
   auth,
-  trainingValidation(joiTrainingSchema),
+  schemasValidation(joiTrainingSchema),
   ctrlWrapper(ctrl.addTraining)
 );
 
 router.post(
   "/:idTraining",
   auth,
-  trainingValidation(joiResultTrainingSchema),
+  schemasValidation(joiResultTrainingSchema),
   ctrlWrapper(ctrl.addResultByIdTraining)
 );
 
