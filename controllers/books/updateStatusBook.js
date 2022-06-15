@@ -40,7 +40,7 @@ const updateStatusBook = async (req, res) => {
     default:
       throw createError(
         400,
-        "fparameter is invalid (can be favorite/rating/wish)"
+        "parameter is invalid (can be favorite/rating/wish)"
       );
   }
 
