@@ -21,19 +21,23 @@ const { createError } = require("../helpers");
 
 const validationBook = (schema = null, message = null) => {
   return (req, _, next) => {
+    let err = null;
     if (schema === null) {
       const { status } = req.params;
       schema = shemaSelect(status);
+      const { error } = schema.validate(req.body);
+      err = error;
+      schema = null;
+    } else {
+      const { error } = schema.validate(req.body);
+      err = error;
     }
 
-    const { error } = schema.validate(req.body);
-    // schema = null;
-
-    if (error) {
+    if (err) {
       if (message) {
         next(createError(400, message));
       }
-      const { message: errMsg } = error;
+      const { message: errMsg } = err;
       next(createError(400, errMsg));
     }
 

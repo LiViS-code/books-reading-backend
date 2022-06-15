@@ -27,7 +27,7 @@ router.put(
 router.patch(
   "/:bookId/:status",
   auth,
-  // validationBook(null),
+  validationBook(),
   ctrlWrapper(ctrl.updateStatusBook)
 );
 
