@@ -4,7 +4,6 @@ const { createError } = require("../../helpers");
 const getAllBooks = async (req, res) => {
   const { _id } = req.user;
   const { page = 1, limit = 20, favorite = null } = req.query;
-  console.log("req.query", req.query);
   const skip = (page - 1) * limit;
   let books = null;
   switch (favorite) {

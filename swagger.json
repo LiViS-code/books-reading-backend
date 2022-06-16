@@ -5,9 +5,17 @@
     "title": "Books-reading project",
     "description": "Documentation for the project Books-reading"
   },
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:3001" }],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "servers": [
+    {
+      "url": "https://book-reader-team.herokuapp.com/"
+    }
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -25,16 +33,20 @@
       "name": "Training",
       "description": "Trainings endpoints"
     }
-
-    
   ],
   "paths": {
-    "api/auth/signup": {
+    "/api/auth/signup": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User registration",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "Registration's object",
           "required": true,
@@ -68,12 +80,18 @@
         }
       }
     },
-    "api/auth/signin": {
+    "/api/auth/signin": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User authorization",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "Authorization's object",
           "required": true,
@@ -103,22 +121,32 @@
         }
       }
     },
-    "api/auth/google": {
+    "/api/auth/google": {
       "get": {
-          "tags": [
-              "Auth"
-          ],
-          "summary": "Google authorization",
-          "parameters": [],
-          "security": [{ "Bearer": [] }]
-        }
-  },
-    "api/auth/logout": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Google authorization",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/api/auth/logout": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "User logout",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "logout's object",
           "required": true,
@@ -141,12 +169,18 @@
         }
       }
     },
-    "api/users/current": {
+    "/api/users/current": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "summary": "Check user's status(authorized or not)",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "requestBody": {
           "description": "User's object",
           "required": true,
@@ -176,257 +210,491 @@
         }
       }
     },
-    "api/books/": {
+    "/api/books/": {
       "post": {
-          "tags": [
-              "Books"
-          ],
-          "summary": "Add book",
-          "parameters": [],
-          "security": [
-              {
-                  "Bearer": []
+        "tags": [
+          "Books"
+        ],
+        "summary": "Add book",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Book's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookRequest"
               }
-          ],
-          "requestBody": {
-              "description": "Book's object",
-              "required": true,
-              "content": {
-                  "application/json": {
-                      "schema": {
-                          "$ref": "#/components/schemas/BookRequest"
-                      }
-                  }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookResponse"
+                }
               }
+            }
           },
-          "responses": {
-              "201": {
-                  "description": "Successful operation",
-                  "content": {
-                      "application/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/BookResponse"
-                          }
-                      }
-                  }
-              },
-              "400": {
-                  "description": "Bad request (invalid request body)",
-                  "content": {}
-              }
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
           }
-      },
-      "get": {
-          "tags": [
-              "Books"
-          ],
-          "summary": "Get book",
-          "parameters": [
-              {
-                  "in": "query",
-                  "name": "page",
-                  "required": true,
-                  "type": "string",
-                  "description": "query page"
-              },
-              {
-                  "in": "query",
-                  "name": "limit",
-                  "required": true,
-                  "type": "string",
-                  "description": "number of books on one page"
-              },
-              {
-                  "in": "query",
-                  "name": "status",
-                  "required": true,
-                  "type": "string",
-                  "description": "book's status"
-              }
-          ],
-          "security": [
-              {
-                  "Bearer": []
-              }
-          ],
-          "responses": {
-              "200": {
-                  "description": "Successful operation",
-                  "content": {
-                      "application/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/BookStatusResponse"
-                          }
-                      }
-                  }
-              },
-              "400": {
-                  "description": "Bad request (invalid request body)",
-                  "content": {}
-              }
-          }
-      }
-  },
-    "api/books/:bookId": {
-      "put": {
-          "tags": [
-              "Books"
-          ],
-          "summary": "Update book's info",
-          "parameters": [
-              {
-                  "in": "path",
-                  "name": "bookId",
-                  "required": true,
-                  "type": "string",
-                  "description": "book's id"
-              }
-          ],
-          "security": [
-              {
-                  "Bearer": []
-              }
-          ],
-          "requestBody": {
-              "description": "Review's object",
-              "required": true,
-              "content": {
-                  "application/json": {
-                      "schema": {
-                          "$ref": "#/components/schemas/ReviewRequest"
-                      }
-                  }
-              }
-          },
-          "responses": {
-              "200": {
-                  "description": "Successful operation",
-                  "content": {
-                      "application/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/ReviewResponse"
-                          }
-                      }
-                  }
-              },
-              "400": {
-                  "description": "Bad request (invalid request body)",
-                  "content": {}
-              },
-              "404": {
-                  "description": "Not found",
-                  "content": {}
-              }
-          }
+        }
       },
       "get": {
         "tags": [
-            "Books"
+          "Books"
         ],
-        "summary": "Get book by id",
+        "summary": "Get book",
         "parameters": [],
         "security": [
-            {
-                "Bearer": []
-            }
+          {
+            "Bearer": []
+          }
         ],
         "responses": {
-            "200": {
-                "description": "Successful operation",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/BookStatusResponse"
-                        }
-                    }
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookResponse"
                 }
-            },
-            "400": {
-                "description": "Bad request (invalid request body)",
-                "content": {}
+              }
             }
-        }
-    },
-    "delete": {
-      "tags": [
-          "Books"
-      ],
-      "summary": "Delete book by id",
-      "parameters": [],
-      "security": [{ "Bearer": [] }]
-    }
-  },
-  "api/books/:bookId/:status": {
-      "patch": {
-          "tags": [
-              "Books"
-          ],
-          "summary": "Update book's status",
-          "parameters": [
-              {
-                  "in": "path",
-                  "name": "bookId",
-                  "required": true,
-                  "type": "string",
-                  "description": "book's id"
-              }
-          ],
-          "security": [
-              {
-                  "Bearer": []
-              }
-          ],
-          "requestBody": {
-              "description": "Status object",
-              "required": true,
-              "content": {
-                  "application/json": {
-                      "schema": {
-                          "$ref": "#/components/schemas/StatusRequest"
-                      }
-                  }
-              }
           },
-          "responses": {
-              "200": {
-                  "description": "Successful operation",
-                  "content": {
-                      "application/json": {
-                          "schema": {
-                              "$ref": "#/components/schemas/StatusResponse"
-                          }
-                      }
-                  }
-              },
-              "400": {
-                  "description": "Bad request (invalid request body)",
-                  "content": {}
-              },
-              "404": {
-                  "description": "Not found",
-                  "content": {}
-              }
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
           }
+        }
       }
-  },
-  "api/training": {
-    "post": {
-      "tags": ["Training"],
-      "summary": "Add training",
-      "parameters": []
     },
-    "get": {
-      "tags": ["Training"],
-      "summary": "Get all trainings",
-      "parameters": []
+    "/api/books/{bookId}": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Get book by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bookId",
+            "required": true,
+            "type": "string",
+            "description": "book's id"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Edit book's by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bookId",
+            "required": true,
+            "type": "string",
+            "description": "book's id"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Edit's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Delete book by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bookId",
+            "required": true,
+            "type": "string",
+            "description": "book's id"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/books/{bookId}/rating": {
+      "patch": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Update book's rating and resume",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bookId",
+            "required": true,
+            "type": "string",
+            "description": "book's id"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Status object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RatingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RatingResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/books/{bookId}/wish": {
+      "patch": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Update book's wish status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bookId",
+            "required": true,
+            "type": "string",
+            "description": "book's id"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Status object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WishRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WishResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/books/{bookId}/favorite": {
+      "patch": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Update book's favorite status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "bookId",
+            "required": true,
+            "type": "string",
+            "description": "book's id"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Status object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FavoriteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoriteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/training": {
+      "post": {
+        "tags": [
+          "Training"
+        ],
+        "summary": "Add training",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Add traning",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrainingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrainingResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Training"
+        ],
+        "summary": "Get all trainings",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllTrainingResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/training/{idTraining}": {
+      "post": {
+        "tags": [
+          "Training"
+        ],
+        "summary": "Ad new result by id training",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idTraining",
+            "required": true,
+            "type": "string",
+            "description": "training's id"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "requestBody": {
+          "description": "Add's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddResultRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddResultResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          }
+        }
+      }
     }
-  }
   },
   "components": {
     "schemas": {
       "RegistrationRequest": {
         "type": "object",
-        "required": ["email", "name", "password"],
+        "required": [
+          "email",
+          "name",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -446,32 +714,41 @@
         }
       },
       "RegistrationResponse": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "name": {
-              "type": "string",
-              "description": "User's name",
-              "example": "qwe"
-            },
-            "userId": {
-              "type": "number",
-              "description": "User's id",
-              "example": "32143232436545474"
-            }
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "qwe"
+          },
+          "userId": {
+            "type": "number",
+            "description": "User's id",
+            "example": "32143232436545474"
+          }
         },
         "example": [
-          { "email": "1@gmail.com", "userId": "1" },
-          { "email": "2@gmail.com", "userId": "2" }
+          {
+            "email": "1@gmail.com",
+            "userId": "1"
+          },
+          {
+            "email": "2@gmail.com",
+            "userId": "2"
+          }
         ]
       },
       "AuthorizationRequest": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -486,27 +763,35 @@
         }
       },
       "AuthorizationResponse": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            },
-            "token": {
-              "type": "string",
-              "description": "User's token",
-              "example": "32143232436545474"
-            }
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "32143232436545474"
+          }
         },
         "example": [
-          { "email": "1@gmail.com", "token": "321432qweqwe32436545474" },
-          { "email": "2@gmail.com", "token": "qweasaasdadsdasdadsqw21" }
+          {
+            "email": "1@gmail.com",
+            "token": "321432qweqwe32436545474"
+          },
+          {
+            "email": "2@gmail.com",
+            "token": "qweasaasdadsdasdadsqw21"
+          }
         ]
       },
       "LogoutRequest": {
         "type": "object",
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -517,7 +802,10 @@
       },
       "UsersCurrentRequest": {
         "type": "object",
-        "required": ["email", "name"],
+        "required": [
+          "email",
+          "name"
+        ],
         "properties": {
           "email": {
             "type": "string",
@@ -544,223 +832,473 @@
             "description": "User's name",
             "example": "qwe"
           }
+        },
+        "example": [
+          {
+            "email": "1@gmail.com",
+            "name": "qwe"
+          },
+          {
+            "email": "2@gmail.com",
+            "name": "qweqwe"
+          }
+        ]
       },
-      "example": [
-        { "email": "1@gmail.com", "name": "qwe" },
-        { "email": "2@gmail.com", "name": "qweqwe" }
-      ]
-    },
-    "BookRequest": {
-      "type": "object",
-      "required": [
+      "BookRequest": {
+        "type": "object",
+        "required": [
           "title",
           "author",
           "year",
           "pages"
-      ],
-      "properties": {
+        ],
+        "properties": {
           "title": {
-              "type": "string",
-              "description": "Book's name"
+            "type": "string",
+            "description": "Book's name",
+            "example": "Robinson Crusoe"
           },
           "author": {
-              "type": "string",
-              "description": "Book's author"
+            "type": "string",
+            "description": "Book's author",
+            "example": "Daniel Defoe"
           },
           "year": {
-              "type": "string",
-              "description": "Book's year"
+            "type": "integer",
+            "description": "Book's year",
+            "example": 1719
           },
           "pages": {
-              "type": "string",
-              "description": "Number of pages"
+            "type": "integer",
+            "description": "Number of pages",
+            "example": 336
           }
-      }
-  },
-  "BookResponse": {
-      "type": "object",
-      "properties": {
+        }
+      },
+      "BookResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Book's id",
+            "example": "62a0eff893dc863455305c45"
+          },
           "title": {
-              "type": "string",
-              "description": "Book's name"
+            "type": "string",
+            "description": "Title of the book",
+            "example": "Robinson Crusoe"
           },
           "author": {
-              "type": "string",
-              "description": "Book's author"
+            "type": "string",
+            "description": "Book author's name",
+            "example": "Daniel Defoe"
           },
           "year": {
-              "type": "string",
-              "description": "Book's year"
+            "type": "integer",
+            "description": "Book's year",
+            "example": 1719
           },
           "pages": {
-              "type": "string",
-              "description": "Number of pages"
+            "type": "integer",
+            "description": "Number of pages",
+            "example": 336
+          },
+          "wish": {
+            "type": "string",
+            "description": "wish: 'Already read', 'Reading now', 'Going to read'",
+            "example": "Going to read"
           },
           "rating": {
-              "type": "integer",
-              "nullable": true,
-              "description": "book's rating"
+            "type": "integer",
+            "description": "Book's rating (0, 1, 2, 3, 4, 5)",
+            "example": 0
           },
-          "review": {
-              "type": "string",
-              "nullable": true,
-              "description": "Book's review"
+          "favorite": {
+            "type": "boolean",
+            "description": "Book's favorite: true/false",
+            "example": false
           },
-          "status": {
-              "type": "string",
-              "description": "Book's status"
+          "resume": {
+            "type": "string",
+            "description": "Book's resume",
+            "example": ""
           },
-          "_id": {
-              "type": "string",
-              "description": "Book's id"
+          "owner": {
+            "type": "string",
+            "description": " id",
+            "example": "629f3eecc52dfe5c553094a9"
           }
-      }
-  },
-  "BookStatusResponse": {
-      "type": "array",
-      "items": {
-          "type": "object",
-          "properties": {
-              "_id": {
-                  "type": "string",
-                  "description": "Book's id"
-              },
-              "title": {
-                  "type": "string",
-                  "description": "Book's name"
-              },
-              "author": {
-                  "type": "string",
-                  "description": "Book's author"
-              },
-              "year": {
-                  "type": "string",
-                  "description": "Book's year"
-              },
-              "pages": {
-                  "type": "string",
-                  "description": "Number of pages"
-              },
-              "rating": {
-                  "type": "integer",
-                  "description": "book's rating"
-              },
-              "review": {
-                  "type": "string",
-                  "description": "Book's review"
-              },
-              "status": {
-                  "type": "string",
-                  "description": "Book's status"
-              }
-          }
-      }
-  },
-  "ReviewRequest": {
-      "type": "object",
-      "required": [
+        }
+      },
+      "RatingRequest": {
+        "type": "object",
+        "required": [
           "rating",
-          "review"
-      ],
-      "properties": {
+          "resume"
+        ],
+        "properties": {
           "rating": {
-              "type": "integer",
-              "description": "Book's rating"
+            "type": "integer",
+            "description": "Book's rating",
+            "example": 5
           },
-          "review": {
-              "type": "string",
-              "description": "Book's review"
+          "resume": {
+            "type": "string",
+            "description": "Book's resume",
+            "example": "I met Robinson Crusoe during the hot summer days, which gave perhaps the best result of immersion in such a beautiful work of foreign literature. While reading, you can understand what is worth cherishing in this life the most - life itself, because many may not be aware of the riskiness of their actions. The protagonist at first acts spontaneously and thoughtlessly, deciding to go on a seafaring trip, but still survives on the island. Thanks to what? But the answer to this question is to be found in the book itself. I recommend this book to everyone!"
           }
-      }
-  },
-  "ReviewResponse": {
-      "type": "object",
-      "properties": {
+        }
+      },
+      "RatingResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Book's id",
+            "example": "62a0eff893dc863455305c45"
+          },
           "title": {
-              "type": "string",
-              "description": "Book's name"
+            "type": "string",
+            "description": "Title of the book",
+            "example": "Robinson Crusoe"
           },
           "author": {
-              "type": "string",
-              "description": "Book's author"
+            "type": "string",
+            "description": "Book author's name",
+            "example": "Daniel Defoe"
           },
           "year": {
-              "type": "string",
-              "description": "Book's year"
+            "type": "integer",
+            "description": "Book's year",
+            "example": 1719
           },
           "pages": {
-              "type": "string",
-              "description": "Number of pages"
+            "type": "integer",
+            "description": "Number of pages",
+            "example": 336
+          },
+          "wish": {
+            "type": "string",
+            "description": "wish: 'Already read', 'Reading now', 'Going to read'",
+            "example": "Already read"
           },
           "rating": {
-              "type": "integer",
-              "description": "book's rating"
+            "type": "integer",
+            "description": "Book's rating (0, 1, 2, 3, 4, 5)",
+            "example": 5
           },
-          "review": {
-              "type": "string",
-              "description": "Book's review"
+          "favorite": {
+            "type": "boolean",
+            "description": "Book's favorite: true/false",
+            "example": false
           },
-          "status": {
-              "type": "string",
-              "description": "Book's status"
+          "resume": {
+            "type": "string",
+            "description": "Book's resume",
+            "example": "I met Robinson Crusoe during the hot summer days, which gave perhaps the best result of immersion in such a beautiful work of foreign literature. While reading, you can understand what is worth cherishing in this life the most - life itself, because many may not be aware of the riskiness of their actions. The protagonist at first acts spontaneously and thoughtlessly, deciding to go on a seafaring trip, but still survives on the island. Thanks to what? But the answer to this question is to be found in the book itself. I recommend this book to everyone!"
           },
+          "owner": {
+            "type": "string",
+            "description": " id",
+            "example": "629f3eecc52dfe5c553094a9"
+          }
+        }
+      },
+      "WishRequest": {
+        "type": "object",
+        "required": [
+          "wish"
+        ],
+        "properties": {
+          "wish": {
+            "type": "string",
+            "description": "wish: 'Already read', 'Reading now', 'Going to read'",
+            "example": "Reading now"
+          }
+        }
+      },
+      "WishResponse": {
+        "type": "object",
+        "properties": {
           "_id": {
-              "type": "string",
-              "description": "Book's id"
-          }
-      }
-  },
-  "StatusRequest": {
-      "type": "object",
-      "required": [
-          "status"
-      ],
-      "properties": {
-          "Status": {
-              "type": "string",
-              "description": "Book's status"
-          }
-      }
-  },
-  "StatusResponse": {
-      "type": "object",
-      "properties": {
+            "type": "string",
+            "description": "Book's id",
+            "example": "62a0eff893dc863455305c45"
+          },
           "title": {
-              "type": "string",
-              "description": "Book's name"
+            "type": "string",
+            "description": "Title of the book",
+            "example": "Robinson Crusoe"
           },
           "author": {
-              "type": "string",
-              "description": "Book's author"
+            "type": "string",
+            "description": "Book author's name",
+            "example": "Daniel Defoe"
           },
           "year": {
-              "type": "string",
-              "description": "Book's year"
+            "type": "integer",
+            "description": "Book's year",
+            "example": 1719
           },
           "pages": {
-              "type": "string",
-              "description": "Number of pages"
+            "type": "integer",
+            "description": "Number of pages",
+            "example": 336
+          },
+          "wish": {
+            "type": "string",
+            "description": "wish: 'Already read', 'Reading now', 'Going to read'",
+            "example": "Reading now"
           },
           "rating": {
-              "type": "integer",
-              "nullable": true,
-              "description": "book's rating"
+            "type": "integer",
+            "description": "Book's rating (0, 1, 2, 3, 4, 5)",
+            "example": 0
           },
-          "review": {
-              "type": "string",
-              "nullable": true,
-              "description": "Book's review"
+          "favorite": {
+            "type": "boolean",
+            "description": "Book's favorite: true/false",
+            "example": false
           },
-          "status": {
-              "type": "string",
-              "description": "Book's status"
+          "resume": {
+            "type": "string",
+            "description": "Book's resume",
+            "example": ""
           },
-          "_id": {
-              "type": "string",
-              "description": "Book's id"
+          "owner": {
+            "type": "string",
+            "description": " id",
+            "example": "629f3eecc52dfe5c553094a9"
           }
+        }
+      },
+      "FavoriteRequest": {
+        "type": "object",
+        "required": [
+          "favorite"
+        ],
+        "properties": {
+          "favorite": {
+            "type": "string",
+            "description": "favorite: false or true",
+            "example": true
+          }
+        }
+      },
+      "FavoriteResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Book's name"
+          },
+          "author": {
+            "type": "string",
+            "description": "Book author's name",
+            "example": "Daniel Defoe"
+          },
+          "year": {
+            "type": "integer",
+            "description": "Book's year",
+            "example": 1719
+          },
+          "pages": {
+            "type": "integer",
+            "description": "Number of pages",
+            "example": 336
+          },
+          "wish": {
+            "type": "string",
+            "description": "wish: 'Already read', 'Reading now', 'Going to read'",
+            "example": "Already read"
+          },
+          "rating": {
+            "type": "integer",
+            "description": "Book's rating (0, 1, 2, 3, 4, 5)",
+            "example": 0
+          },
+          "favorite": {
+            "type": "boolean",
+            "description": "Book's favorite: true/false",
+            "example": true
+          },
+          "resume": {
+            "type": "string",
+            "description": "Book's resume",
+            "example": ""
+          },
+          "owner": {
+            "type": "string",
+            "description": " id",
+            "example": "629f3eecc52dfe5c553094a9"
+          }
+        }
+      },
+      "TrainingRequest": {
+        "type": "object",
+        "required": [
+          "sart",
+          "end"
+        ],
+        "properties": {
+          "sart": {
+            "type": "date",
+            "description": "Start traning date",
+            "example": "2020-06-13"
+          },
+          "end": {
+            "type": "date",
+            "description": "End traning date",
+            "example": "2020-07-01"
+          }
+        }
+      },
+      "TrainingResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Training's id",
+            "example": "62a0eff893dc863455305c45"
+          },
+          "start": {
+            "type": "date",
+            "description": "Start training date",
+            "example": "2020-06-13T00:00:00.000Z"
+          },
+          "end": {
+            "type": "date",
+            "description": "End traning date",
+            "example": "2020-07-01T00:00:00.000Z"
+          },
+          "books": {
+            "type": "array",
+            "description": "Array of books added to traning",
+            "example": [
+              "62a166fbde60d11788350a58",
+              "62a39a0e9e09ac71e1c30432"
+            ]
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "629f3eecc52dfe5c553094a9"
+          },
+          "result": {
+            "type": "array",
+            "description": "Number of pages read per date",
+            "example": []
+          }
+        }
+      },
+      "AllTrainingResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Training's id",
+            "example": "62a0eff893dc863455305c45"
+          },
+          "start": {
+            "type": "date",
+            "description": "Start training date",
+            "example": "2020-06-13T00:00:00.000Z"
+          },
+          "end": {
+            "type": "date",
+            "description": "End traning date",
+            "example": "2020-07-01T00:00:00.000Z"
+          },
+          "books": {
+            "type": "array",
+            "description": "Array of books added to traning",
+            "example": [
+              "62a166fbde60d11788350a58",
+              "62a39a0e9e09ac71e1c30432"
+            ]
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "629f3eecc52dfe5c553094a9"
+          },
+          "result": {
+            "type": "array",
+            "description": "Number of pages read per date",
+            "example": [
+              {
+                "date": "2022-06-15",
+                "page": 30
+              },
+              {
+                "date": "2022-06-16",
+                "page": 58
+              }
+            ]
+          }
+        }
+      },
+      "AddResultRequest": {
+        "type": "object",
+        "required": [
+          "wish"
+        ],
+        "properties": {
+          "result": {
+            "type": "array",
+            "description": "Training outcome per day",
+            "example": [
+              {
+                "date": "2022-06-17",
+                "page": 43
+              }
+            ]
+          }
+        }
+      },
+      "AddResultResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Training's id",
+            "example": "62a0eff893dc863455305c45"
+          },
+          "start": {
+            "type": "date",
+            "description": "Start training date",
+            "example": "2020-06-13T00:00:00.000Z"
+          },
+          "end": {
+            "type": "date",
+            "description": "End traning date",
+            "example": "2020-07-01T00:00:00.000Z"
+          },
+          "books": {
+            "type": "array",
+            "description": "Array of books added to traning",
+            "example": [
+              "62a166fbde60d11788350a58",
+              "62a39a0e9e09ac71e1c30432"
+            ]
+          },
+          "owner": {
+            "type": "string",
+            "description": "User's id",
+            "example": "629f3eecc52dfe5c553094a9"
+          },
+          "result": {
+            "type": "array",
+            "description": "Number of pages read per date",
+            "example": [
+              {
+                "date": "2022-06-17",
+                "page": 43
+              }
+            ]
+          }
+        }
       }
-  }
     },
     "securitySchemes": {
       "Bearer": {
