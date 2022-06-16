@@ -53,7 +53,7 @@ const bookSchema = Schema(
 const joiBookSchema = Joi.object({
   title: Joi.string().required().min(3).max(100),
   author: Joi.string().required().min(3).max(35),
-  year: Joi.date().required(),
+  year: Joi.number().required(),
   pages: Joi.number().required().min(1),
 });
 
