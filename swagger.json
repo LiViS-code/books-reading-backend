@@ -210,6 +210,36 @@
         }
       }
     },
+    "/api/users/info": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all user information",
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllUserInfoResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/books/": {
       "post": {
         "tags": [
@@ -719,17 +749,18 @@
           "email": {
             "type": "string",
             "description": "User's email",
+            "example": "mymail@mail.com",
             "format": "email"
           },
           "name": {
             "type": "string",
             "description": "User's name",
-            "example": "qwe"
+            "example": "bazyl"
           },
           "userId": {
             "type": "number",
             "description": "User's id",
-            "example": "32143232436545474"
+            "example": "629f3eecc52dfe5c553094a9"
           }
         },
         "example": [
@@ -753,12 +784,13 @@
           "email": {
             "type": "string",
             "description": "User's email",
+            "example": "mymail@mail.com",
             "format": "email"
           },
           "password": {
             "type": "string",
             "description": "User's password",
-            "example": "qwerty123"
+            "example": "159753"
           }
         }
       },
@@ -768,12 +800,13 @@
           "email": {
             "type": "string",
             "description": "User's email",
+            "example": "mymail@mail.com",
             "format": "email"
           },
           "token": {
             "type": "string",
             "description": "User's token",
-            "example": "32143232436545474"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTVjODE3Y2ZjZjkwNGFiZjQyZGUwOCIsImlhdCI6MTY1NTAzMjU0MiwiZXhwIjoxNjU1MDM2MTQyfQ.1PqQC1D4hFCHRX1SmOz-egPzggipivdGxxPWbVfrpDs"
           }
         },
         "example": [
@@ -843,6 +876,46 @@
             "name": "qweqwe"
           }
         ]
+      },
+      "AllUserInfoResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "629f3eecc52dfe5c553094a9"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "$2a$10$/aBd2YSfQQ1KqL48jEoZEuqYdxepDG3khSzwtSMe7DBtXkAiAul.2"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "qwe"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWYzZWVjYzUyZGZlNWM1NTMwOTRhOSIsImlhdCI6MTY1NTQ2NDQxNCwiZXhwIjoxNjU1NDY4MDE0fQ.Y5zp9vXVH1lIdxN93_Q-gESvjNt2spAWyf1NQMrRbOo"
+          },
+          "verify": {
+            "type": "boolean",
+            "description": "User's verify Email (true or false)",
+            "example": false
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "User's verification token",
+            "example": "20459951-a19b-471f-81a5-4dd56e57c8bc"
+          }
+        }
       },
       "BookRequest": {
         "type": "object",
