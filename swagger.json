@@ -132,7 +132,19 @@
           {
             "Bearer": []
           }
-        ]
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorizationGoogleResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/auth/logout": {
@@ -815,6 +827,39 @@
             "token": "321432qweqwe32436545474"
           },
           {
+            "email": "2@gmail.com",
+            "token": "qweasaasdadsdasdadsqw21"
+          }
+        ]
+      },
+      "AuthorizationGoogleResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "bazyl"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "example": "mymail@mail.com",
+            "format": "email"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTVjODE3Y2ZjZjkwNGFiZjQyZGUwOCIsImlhdCI6MTY1NTAzMjU0MiwiZXhwIjoxNjU1MDM2MTQyfQ.1PqQC1D4hFCHRX1SmOz-egPzggipivdGxxPWbVfrpDs"
+          }
+        },
+        "example": [
+          {
+            "name": "qweqwe",
+            "email": "1@gmail.com",
+            "token": "321432qweqwe32436545474"
+          },
+          {
+            "name": "qweqweqwe",
             "email": "2@gmail.com",
             "token": "qweasaasdadsdasdadsqw21"
           }
