@@ -775,16 +775,10 @@
             "example": "629f3eecc52dfe5c553094a9"
           }
         },
-        "example": [
-          {
+        "example": {
             "email": "1@gmail.com",
             "userId": "1"
-          },
-          {
-            "email": "2@gmail.com",
-            "userId": "2"
           }
-        ]
       },
       "AuthorizationRequest": {
         "type": "object",
@@ -821,16 +815,10 @@
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTVjODE3Y2ZjZjkwNGFiZjQyZGUwOCIsImlhdCI6MTY1NTAzMjU0MiwiZXhwIjoxNjU1MDM2MTQyfQ.1PqQC1D4hFCHRX1SmOz-egPzggipivdGxxPWbVfrpDs"
           }
         },
-        "example": [
-          {
+        "example": {
             "email": "1@gmail.com",
             "token": "321432qweqwe32436545474"
-          },
-          {
-            "email": "2@gmail.com",
-            "token": "qweasaasdadsdasdadsqw21"
           }
-        ]
       },
       "AuthorizationGoogleResponse": {
         "type": "object",
@@ -852,18 +840,11 @@
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTVjODE3Y2ZjZjkwNGFiZjQyZGUwOCIsImlhdCI6MTY1NTAzMjU0MiwiZXhwIjoxNjU1MDM2MTQyfQ.1PqQC1D4hFCHRX1SmOz-egPzggipivdGxxPWbVfrpDs"
           }
         },
-        "example": [
-          {
+        "example": {
             "name": "qweqwe",
             "email": "1@gmail.com",
             "token": "321432qweqwe32436545474"
-          },
-          {
-            "name": "qweqweqwe",
-            "email": "2@gmail.com",
-            "token": "qweasaasdadsdasdadsqw21"
           }
-        ]
       },
       "LogoutRequest": {
         "type": "object",
@@ -911,16 +892,10 @@
             "example": "qwe"
           }
         },
-        "example": [
-          {
+        "example": {
             "email": "1@gmail.com",
             "name": "qwe"
-          },
-          {
-            "email": "2@gmail.com",
-            "name": "qweqwe"
           }
-        ]
       },
       "AllUserInfoResponse": {
         "type": "object",
