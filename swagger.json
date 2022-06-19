@@ -128,11 +128,17 @@
         ],
         "summary": "Google authorization",
         "parameters": [],
-        "security": [
-          {
-            "Bearer": []
+        "requestBody": {
+          "description": "Auth's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthorizationGoogleRequeste"
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "Successful operation",
@@ -819,6 +825,25 @@
             "email": "1@gmail.com",
             "token": "321432qweqwe32436545474"
           }
+      },
+      "AuthorizationGoogleRequeste": {
+        "type": "object",
+        "required": [
+          "email",
+          "name"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "qwe"
+          }
+        }
       },
       "AuthorizationGoogleResponse": {
         "type": "object",
