@@ -3,6 +3,7 @@ const axios = require("axios");
 const jwt = require('jsonwebtoken');
 const { User } = require('../../models/user');
 const bcrypt = require('bcryptjs');
+const { v4 } = require('uuid');
 
 const { SECRET_KEY } = process.env;
 
@@ -35,11 +36,13 @@ const googleRedirect = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
+    const verificationToken = v4()
     const hashPassword = bcrypt.hashSync(id, bcrypt.genSaltSync(10));
     const result = await User.create({
       name,
       email,
       password: hashPassword,
+      verificationToken
     });
 
     return res.redirect(
